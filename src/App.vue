@@ -1,47 +1,28 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { onMounted, ref } from "vue";
+import { TileMapServiceImageryProvider, Viewer, buildModuleUrl } from "cesium";
+import "cesium/Build/CesiumUnminified/Widgets/widgets.css";
+
+const viewerDivRef = ref<HTMLDivElement>();
+window.CESIUM_BASE_URL = "libs/cesium/";
+
+onMounted(() => {
+  new Viewer(viewerDivRef.value as HTMLElement, {
+    imageryProvider: new TileMapServiceImageryProvider({
+      // 对于 CESIUM_BASE_URL 下的静态资源，推荐用 buildModuleUrl 获取
+      url: buildModuleUrl("Assets/Textures/NaturalEarthII"),
+    }),
+  });
+});
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="cesium-viewer" ref="viewerDivRef"></div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+#cesium-viewer {
+  width: 100%;
+  height: 100%;
 }
 </style>
