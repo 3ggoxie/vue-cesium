@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { TileMapServiceImageryProvider, Viewer, buildModuleUrl } from "cesium";
+import * as Cesium from "cesium";
 import "cesium/Build/CesiumUnminified/Widgets/widgets.css";
 
 const viewerDivRef = ref<HTMLDivElement>();
 window.CESIUM_BASE_URL = "libs/cesium/";
-
+Cesium.Ion.defaultAccessToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MDEzOTlkMS02NGNkLTQyNDYtOWU2YS03ZGFhZTFmMThhZGEiLCJpZCI6MzEwNzc4LCJpYXQiOjE3NDk1MzMzNzN9.PUNeA9lTn8QkCnriv1uIpbYR8PEwGCcVhSblWHLlegA";
 onMounted(() => {
-  new Viewer(viewerDivRef.value as HTMLElement, {
-    imageryProvider: new TileMapServiceImageryProvider({
-      // 对于 CESIUM_BASE_URL 下的静态资源，推荐用 buildModuleUrl 获取
-      url: buildModuleUrl("Assets/Textures/NaturalEarthII"),
+  const viewer = new Cesium.Viewer(viewerDivRef.value as HTMLElement, {
+    imageryProvider: new Cesium.UrlTemplateImageryProvider({
+      url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
     }),
+    navigationHelpButton: false,
+    geocoder: false,
+    animation: false,
+    timeline: false,
+    fullscreenButton: false,
+    baseLayerPicker: false,
   });
+  // @ts-ignore
+  viewer.cesiumWidget.creditContainer.style.display = "none";
 });
 </script>
 
@@ -24,5 +32,9 @@ onMounted(() => {
 #cesium-viewer {
   width: 100%;
   height: 100%;
+}
+.cesium-widget-credits {
+  　　display: none !important;
+  　　visibility: hidden !important;
 }
 </style>
