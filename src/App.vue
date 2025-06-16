@@ -20,11 +20,30 @@ onMounted(() => {
     animation: false,
     timeline: false,
     fullscreenButton: false,
-    baseLayerPicker: false,
+    baseLayerPicker: true,
+    requestRenderMode:true,
+    
+    // mapMode2D:Cesium.MapMode2D.ROTATE
   });
   // @ts-ignore
   viewer.cesiumWidget.creditContainer.style.display = "none";
-  //工位git测试
+
+  //点实体示例
+  console.log(viewer.entities);
+  viewer.entities.add({
+    position:Cesium.Cartesian3.fromDegrees(121.546622,29.817303),
+    point:{
+      pixelSize:20,
+      color:Cesium.Color.RED
+    },
+    label:{
+      text:'鄞州区政府在这',
+      font:'14px Comic Sans MS',
+      fillColor:Cesium.Color.PURPLE
+    }
+  })
+
+  
 
 });
 </script>
