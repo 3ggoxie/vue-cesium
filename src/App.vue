@@ -28,20 +28,33 @@ onMounted(() => {
   // @ts-ignore
   viewer.cesiumWidget.creditContainer.style.display = "none";
 
-  //点实体示例
+  //实体示例
   console.log(viewer.entities);
   viewer.entities.add({
     position:Cesium.Cartesian3.fromDegrees(121.546622,29.817303),
     point:{
-      pixelSize:20,
+      show:true,
+      pixelSize:10,
       color:Cesium.Color.RED
     },
     label:{
-      text:'鄞州区政府在这',
-      font:'14px Comic Sans MS',
+      show:false,
+      text:'鄞州区政府',
+      font:"14px",
       fillColor:Cesium.Color.PURPLE
-    }
+    },
+     billboard: {
+    image: 'images/pin.png', 
+    scale: 0.2,                 
+    pixelOffset:new Cesium.Cartesian2(15,-15),
+    // pixelOffsetScaleByDistance:new Cesium.NearFarScalar(1000,1,10000,0.2),
+    // sizeInMeters:true,
+    
+    
+  }
   })
+
+ 
 
   
 
