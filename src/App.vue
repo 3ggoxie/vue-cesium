@@ -5,8 +5,11 @@ import "cesium/Build/CesiumUnminified/Widgets/widgets.css";
 
 const viewerDivRef = ref<HTMLDivElement>();
 window.CESIUM_BASE_URL = "libs/cesium/";
-Cesium.Ion.defaultAccessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MDEzOTlkMS02NGNkLTQyNDYtOWU2YS03ZGFhZTFmMThhZGEiLCJpZCI6MzEwNzc4LCJpYXQiOjE3NDk1MzMzNzN9.PUNeA9lTn8QkCnriv1uIpbYR8PEwGCcVhSblWHLlegA";
+
+  const token=import.meta.env.VITE_APP_CESIUM_TOKEN
+   Cesium.Ion.defaultAccessToken=token
+
+  
 onMounted(() => {
   const viewer = new Cesium.Viewer(viewerDivRef.value as HTMLElement, {
     imageryProvider: new Cesium.UrlTemplateImageryProvider({
@@ -22,6 +25,7 @@ onMounted(() => {
   // @ts-ignore
   viewer.cesiumWidget.creditContainer.style.display = "none";
   //工位git测试
+
 });
 </script>
 
@@ -33,9 +37,5 @@ onMounted(() => {
 #cesium-viewer {
   width: 100%;
   height: 100%;
-}
-.cesium-widget-credits {
-  　　display: none !important;
-  　　visibility: hidden !important;
 }
 </style>
