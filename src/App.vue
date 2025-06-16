@@ -21,6 +21,7 @@ onMounted(() => {
   });
   // @ts-ignore
   viewer.cesiumWidget.creditContainer.style.display = "none";
+  //工位git测试
 });
 </script>
 
